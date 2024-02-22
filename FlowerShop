@@ -1,0 +1,72 @@
+import java.util.Scanner;
+
+public class FlowerShop {
+    private Flower[] inventory;
+    private static final int MAX_FLOWERS = 10;
+//Declare the size of the array
+    public FlowerShop() {
+        this.inventory = new Flower[MAX_FLOWERS];
+        addFlowersToInventory();
+    }
+//Sets the details of the flowes
+    public void addFlowersToInventory() {
+        inventory[0] = new Flower("Daffodils", "Yellow", 2.0, 20);
+        inventory[1] = new Flower("Roses", "Red", 3.5, 15);
+        inventory[2] = new Flower("Lilies", "White", 4.0, 10);
+        inventory[3] = new Flower("Sunflowers", "Yellow", 2.5, 18);
+        inventory[4] = new Flower("Orchids", "Purple", 5.0, 12);
+        inventory[5] = new Flower("Tulips", "Pink", 2.2, 25);
+        inventory[6] = new Flower("Carnations", "Orange", 1.8, 30);
+        inventory[7] = new Flower("Peonies", "Pink", 4.0, 8);
+        inventory[8] = new Flower("Daisies", "White", 1.5, 22);
+        inventory[9] = new Flower("Hyacinths", "Blue", 3.2, 14);
+    }
+
+//
+    public void displayInventory() {
+        System.out.println("\nFlower Inventory:");
+        for (Flower flower : inventory) {
+            if (flower != null) {
+                System.out.println(flower);
+            }
+        }
+    }
+//Calculating the total value of the flowers
+    public double calculateTotalValue() {
+        double totalValue = 0;
+        for (Flower flower : inventory) {
+            if (flower != null) {
+                totalValue += flower.getPrice() * flower.getQuantity();
+            }
+        }
+        return totalValue;
+    }
+//Allow the user to search for a specific flower
+    public void searchFlowerByName(String name) {
+        boolean found = false;
+        for (Flower flower : inventory) {
+            if (flower != null && flower.getName().equalsIgnoreCase(name)) {
+                System.out.println("Flower found:\n" + flower);
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            System.out.println("Flower not found.");
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        FlowerShop flowerShop = new FlowerShop();
+
+        flowerShop.displayInventory();
+        System.out.println("Total value of flower inventory: $" + flowerShop.calculateTotalValue());
+
+        System.out.print("Enter the name of the flower to search: ");
+        String searchName = scanner.nextLine();
+        flowerShop.searchFlowerByName(searchName);
+
+        scanner.close();
+    }
+}
